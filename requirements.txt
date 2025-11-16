@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+jinja2
+aiofiles
+python-multipart
+sqlalchemy
+databases
+pydantic
+geoip2
+python-dotenv
+python-multipart
+passlib[bcrypt]==1.7.4
+

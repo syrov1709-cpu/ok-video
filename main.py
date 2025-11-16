@@ -103,7 +103,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # базовий домен
-BASE_DOMAIN = "video-hub-z323.onrender.com"
+BASE_DOMAIN = "ok-video-1.onrender.com"
 ADMIN_HOST = BASE_DOMAIN
 
 DEFAULT_VIDEO_URL = "https://www.facebook.com/100083217134676/videos/24845200235163725/?__so__=permalink&locale=uk_UA"

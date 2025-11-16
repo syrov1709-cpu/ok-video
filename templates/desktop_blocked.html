@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Доступ обмежено</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .card {
+      background: #161b22;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      padding: 30px 40px;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 12px;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .card {
+    animation: popIn 0.6s ease-out;
+  }
+  @keyframes popIn {
+    0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🚫 Доступ ограничен</h1>
+    <p>Эта страница доступна только с мобильного устройства.<br>Попробуйте открыть ее на телефоне.</p>
+  </div>
+</body>
+</html>

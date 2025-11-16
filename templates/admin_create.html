@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Створити сайт</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+    }
+    .input-dark {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 10px 12px;
+      color: #e2e8f0;
+      width: 100%;
+    }
+    .input-dark:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
+    }
+    label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #94a3b8;
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.2s;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+   .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #94a3b8;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.back-link:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  border-color: #2563eb;
+  box-shadow: 0 6px 16px rgba(37,99,235,0.4);
+  transform: translateY(-1px);
+}
+
+.back-link:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+}
+
+    .card {
+      background: #161b22;
+      border: 1px solid #1f2937;
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #161b22;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 14px;
+    border-bottom: 1px solid #1f2937;
+  }
+  th {
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: .05em;
+  }
+  tr:hover {
+    background: rgba(249,115,22,0.05);
+    transition: background 0.2s ease;
+  }
+  .button {
+    background: linear-gradient(135deg, #f97316, #c2410c);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(249,115,22,0.4);
+  }
+      .file-upload {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  .file-upload input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  .file-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f97316, #c2410c);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(249,115,22,0.3);
+  }
+  .file-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(249,115,22,0.5);
+    background: linear-gradient(135deg, #fb923c, #ea580c);
+  }
+  .file-name {
+    margin-top: 8px;
+    color: #94a3b8;
+    font-size: 14px;
+    font-style: italic;
+
+  }
+    /* — кастомна кнопка для input[type=file] — */
+.file-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-top: 6px;
+}
+.file-row .file-title {
+  font-weight: 600; font-size: 0.85rem; letter-spacing: .03em; color: #94a3b8;
+}
+.file-upload {
+  position: relative; display: inline-block;
+}
+.file-upload input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;
+}
+/* кнопка */
+.file-btn {
+  background: linear-gradient(135deg, #f97316, #c2410c);
+  color: #fff; border-radius: 8px; padding: 8px 16px; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; font-size: 12.5px;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  border: 1px solid rgba(0,0,0,.3);
+  box-shadow: 0 3px 8px rgba(249,115,22,.28);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.file-btn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #fb923c, #ea580c);
+  box-shadow: 0 6px 12px rgba(249,115,22,.36);
+}
+.file-btn:active { transform: translateY(0); }
+/* легка хвиля при кліку */
+.file-btn::after {
+  content:""; position:absolute; inset:0; border-radius:8px; pointer-events:none;
+  box-shadow: 0 0 0 0 rgba(255,255,255,.25); opacity:0; transition: box-shadow .35s, opacity .35s;
+}
+.file-upload:active .file-btn::after { box-shadow: 0 0 0 10px rgba(255,255,255,.08); opacity:1; }
+
+/* підпис з назвою файлу */
+.file-name {
+  margin-top: 6px; color: #9ca3af; font-size: 13px; font-style: italic;
+}
+.page-title {
+  font-size: clamp(1.6rem, 2.2vw + 1rem, 2.2rem);
+  font-weight: 700;
+  color: #e6edf3;
+  letter-spacing: 0.02em;
+  position: relative;
+  text-transform: uppercase;
+  text-align: left;
+  line-height: 1.2;
+  padding-bottom: 8px;
+}
+.page-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  box-shadow: 0 0 12px rgba(234,88,12,0.6);
+  transition: width 0.3s ease;
+}
+.page-title:hover::after {
+  width: 200px;
+}
+
+        /* --- кнопка Назад --- */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      background: linear-gradient(180deg, rgba(15,23,42,0.35), rgba(2,6,23,0.2));
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-back:hover {
+      color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 0 20px rgba(37,99,235,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-back:active {
+      transform: translateY(0);
+      box-shadow: 0 0 10px rgba(37,99,235,0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="max-w-3xl mx-auto py-10">
+    <div class="flex items-center justify-between mb-6">
+    <h1 class="page-title">Створити новий сайт</h1>
+      <a href="/admin" class="btn-back">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+  Назад в адмінку
+</a>
+    </div>
+
+    {% if error %}
+      <div class="mb-4 bg-red-500/10 border border-red-500/50 text-red-200 px-4 py-2 rounded">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <form action="/admin/create" method="post" enctype="multipart/form-data" class="card space-y-5" id="createForm" novalidate>
+      <div>
+        <label for="title">Назва сайту (будь-якою мовою)</label>
+        <input id="title" name="title" type="text" required placeholder="Наприклад: Акція для клієнтів" class="input-dark mt-1">
+      </div>
+
+
+
+      <div>
+        <label for="custom_domain">Домен (необов’язково)</label>
+        <input id="custom_domain" name="custom_domain" type="text" placeholder="Наприклад: video1.com" class="input-dark mt-1">
+      </div>
+      <div>
+        <label for="site_id">Site ID (піддомен)</label>
+        <input id="site_id" name="site_id" type="text" required placeholder="Наприклад: video1" class="input-dark mt-1">
+      </div>
+
+      <div>
+        <label for="video_url">Посилання на відео (необов’язково)</label>
+        <input id="video_url" name="video_url" type="text" placeholder="https://..." class="input-dark mt-1">
+        <p class="text-xs text-slate-500 mt-1">Якщо не вкажеш — підставимо дефолтне Facebook-відео.</p>
+      </div>
+
+      <div>
+  <div class="file-row">
+    <div class="file-title">Файл для користувачів з росії</div>
+
+    <div class="file-upload">
+      <label class="file-btn">
+        <!-- іконка скріпки/завантаження -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8 11l4-4 4 4M12 7v10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Виберіть файл
+        <input id="ua_file" name="ua_file" type="file"
+               accept=".pdf,.zip,.doc,.docx,.jpg,.png,.mp4,.txt,.apk"
+               onchange="showFileName(this)">
+      </label>
+    </div>
+  </div>
+<script>
+  function showFileName(input) {
+    const el = document.getElementById('file-name');
+    el.textContent = input.files.length ? input.files[0].name : 'Файл не вибрано';
+  }
+</script>
+
+  <div class="file-name" id="file-name">Файл не вибрано</div>
+
+</div>
+
+
+      <div>
+        <label for="status">Статус сайту</label>
+        <select id="status" name="status" class="input-dark mt-1">
+          <option value="new">🆕 Новий</option>
+          <option value="active">🟢 Працює</option>
+          <option value="blocked">⛔ Заблокований</option>
+        </select>
+        <p class="text-xs text-slate-500 mt-1">
+          “Заблокований” можна буде використати, щоб не показувати сайт користувачам.
+        </p>
+      </div>
+
+
+
+      <div>
+        <label for="device_mode">Пристрої</label>
+        <select id="device_mode" name="device_mode" class="input-dark mt-1">
+          <option value="android" selected>📱 Android</option>
+          <option value="ios">📱 iOS</option>
+          <option value="desktop">💻 Desktop</option>
+          <option value="all">🌍 Всі пристрої</option>
+        </select>
+        <p class="text-xs text-slate-500 mt-1">Вибери, де саме буде відкриватися цей сайт.</p>
+      </div>
+            <div class="pt-2">
+        <button type="submit" class="btn-primary">Створити</button>
+                <p class="text-xs text-slate-500 mt-1">
+    Якщо користувач з росії — йому одразу скачається цей файл.
+  </p>
+      </div>
+    </form>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('createForm');
+  const sid = document.getElementById('site_id');
+  const cd  = document.getElementById('custom_domain');
+  const errId = 'exclusive_error_box';
+
+  function showError(msg){
+    let box = document.getElementById(errId);
+    if(!box){
+      box = document.createElement('div');
+      box.id = errId;
+      box.className = 'mb-4 p-3 rounded bg-red-500/10 border border-red-500/40 text-red-300';
+      form.insertBefore(box, form.firstElementChild);
+    }
+    box.textContent = msg;
+  }
+
+  function clearError(){
+    const box = document.getElementById(errId);
+    if(box) box.remove();
+  }
+
+  function valid(){
+    const s = (sid?.value || '').trim();
+    const d = (cd?.value || '').trim();
+    if (!s && !d) { showError('Вкажіть або Site ID (піддомен), або Домен'); return false; }
+    if (s && d)   { showError('Вкажіть лише одне поле — або Site ID, або Домен'); return false; }
+    clearError();
+    return true;
+  }
+
+  sid?.addEventListener('input', clearError);
+  cd?.addEventListener('input', clearError);
+
+  form.addEventListener('submit', function(e){
+    if(!valid()){
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
+});
+</script>
+
+</body>
+  
+</html>
+
+
+
+

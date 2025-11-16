@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Редагування сайту</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03), transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(255,255,255,0.02), transparent 60%),
+      linear-gradient(180deg, #0d1117 0%, #06090f 100%);
+      background-attachment: fixed;
+      animation: softLight 10s ease-in-out infinite alternate;
+      color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+    @keyframes softLight {
+      0% { background-position: 30% 30%, 70% 70%; }
+      100% { background-position: 40% 60%, 60% 40%; }
+    }
+    .card {
+      background: #161b22;
+      border: 1px solid #1f2937;
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .btn { padding: 10px 16px; border-radius: 8px; font-weight: 600; transition: .2s; }
+    .btn-blue { background: #2563eb; color: #fff; }
+    .btn-blue:hover { background: #1d4ed8; }
+    .btn-gray { background: #374151; color: #d1d5db; }
+    .btn-gray:hover { background: #8B0000; }
+    .btn-outline { border: 1px solid #334155; color: #cbd5e1; background: transparent; }
+    .input-dark, select, textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #e2e8f0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .input-dark:focus, select:focus, textarea:focus { border-color: #2563eb; }
+    label { color: #cbd5e1; font-weight: 600; }
+    .hint { font-size: 12px; color: #94a3b8; }
+    .page-title {
+      font-size: clamp(1.6rem, 2.2vw + 1rem, 2.2rem);
+      font-weight: 700; color: #e6edf3; letter-spacing: .02em;
+      position: relative; text-transform: uppercase; line-height: 1.2; padding-bottom: 8px;
+    }
+    .page-title::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 64px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, #f97316, #ea580c); box-shadow: 0 0 12px rgba(234,88,12,.6);
+      transition: width .3s ease;
+    }
+    .page-title:hover::after { width: 275px; }
+
+      /* стилі з admin_create.html — короткий блок тільки для кнопки */
+  .file-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px}
+  .file-title{font-weight:600;font-size:.85rem;letter-spacing:.03em;color:#94a3b8}
+  .file-upload{position:relative;display:inline-block}
+  .file-upload input[type="file"]{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+  .file-btn{
+    background:linear-gradient(135deg,#f97316,#c2410c);color:#fff;border-radius:8px;padding:8px 16px;
+    font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;
+    cursor:pointer;border:1px solid rgba(0,0,0,.3);box-shadow:0 3px 8px rgba(249,115,22,.28);
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;position:relative
+  }
+  .file-btn:hover{transform:translateY(-1px);background:linear-gradient(135deg,#fb923c,#ea580c);box-shadow:0 6px 12px rgba(249,115,22,.36)}
+  .file-btn:active{transform:translateY(0)}
+  .file-btn::after{content:"";position:absolute;inset:0;border-radius:8px;pointer-events:none;box-shadow:0 0 0 0 rgba(255,255,255,.25);opacity:0;transition:box-shadow .35s,opacity .35s}
+  .file-upload:active .file-btn::after{box-shadow:0 0 0 10px rgba(255,255,255,.08);opacity:1}
+  .file-name{margin-top:6px;color:#9ca3af;font-size:13px;font-style:italic}
+
+    .btn-primary {
+      background-color: #2563eb;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.2s;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+
+        /* --- кнопка Назад --- */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      background: linear-gradient(180deg, rgba(15,23,42,0.35), rgba(2,6,23,0.2));
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-back:hover {
+      color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 0 20px rgba(37,99,235,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-back:active {
+      transform: translateY(0);
+      box-shadow: 0 0 10px rgba(37,99,235,0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="max-w-3xl mx-auto py-10">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="page-title">Редагування сайту</h1>
+      <a href="/admin" class="btn-back">⬅ Назад</a>
+    </div>
+
+    <div class="card">
+      {% if error %}
+        <div class="mb-4 p-3 rounded bg-red-500/10 border border-red-500/40 text-red-300">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="/admin/edit/{{ site.id }}" enctype="multipart/form-data" class="space-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label for="title">Назва</label>
+            <input id="title" name="title" type="text" class="input-dark mt-1" value="{{ site.title }}" required>
+          </div>
+
+          <div>
+            <label for="site_id">Site ID (піддомен)</label>
+            <input id="site_id" type="text" class="input-dark mt-1" value="{{ site.site_id }}" disabled>
+            <p class="hint mt-1">Site ID не змінюється. Основний піддомен: <code>{{ site.site_id }}.{{ base_domain }}</code></p>
+          </div>
+        </div>
+
+        <div>
+          <label for="custom_domain">Домен (необов’язково)</label>
+          <input id="custom_domain" name="custom_domain" type="text" class="input-dark mt-1" placeholder="наприклад: brand.com" value="{{ site.custom_domain or '' }}">
+          <p class="hint mt-1">
+            Якщо вкажеш домен — сайт відкриватиметься на ньому (не забудь додати домен у Render та налаштувати DNS).<br>
+            Якщо залишиш порожнім — сайт працюватиме на піддомені: <code>{{ site.site_id }}.{{ base_domain }}</code>, а також за шляхом <code>{{ base_domain }}/s/{{ site.site_id }}</code>.
+          </p>
+        </div>
+
+        <div>
+          <label for="video_url">Відео (URL, необов’язково)</label>
+          <input id="video_url" name="video_url" type="url" class="input-dark mt-1" value="{{ site.video_url or '' }}" placeholder="https://...">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label for="status">Статус</label>
+          <select id="status" name="status" class="mt-1">
+            {% set s = site.status or 'new' %}
+            <option value="new" {{ 'selected' if s == 'new' else '' }}>🆕 Новий</option>
+            <option value="active" {{ 'selected' if s == 'active' else '' }}>🟢 Працює</option>
+            <option value="blocked" {{ 'selected' if s == 'blocked' else '' }}>⛔ Заблокований</option>
+          </select>
+        </div>
+
+
+          <div>
+            <label for="device_mode">Пристрій</label>
+            <select id="device_mode" name="device_mode" class="mt-1">
+              {% set d = site.device_mode or 'android' %}
+              <option value="all" {{ 'selected' if d == 'all' else '' }}>усі</option>
+              <option value="android" {{ 'selected' if d == 'android' else '' }}>android</option>
+              <option value="ios" {{ 'selected' if d == 'ios' else '' }}>ios</option>
+              <option value="desktop" {{ 'selected' if d == 'desktop' else '' }}>desktop</option>
+            </select>
+          </div>
+        </div>
+
+<div>
+  <div class="file-row">
+    <div class="file-title">Файл для користувачів з росії</div>
+    <div class="file-upload">
+      <label class="file-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8 11l4-4 4 4M12 7v10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Виберіть файл
+        <input id="ua_file" name="ua_file" type="file"
+               accept=".pdf,.zip,.doc,.docx,.jpg,.png,.mp4,.txt,.apk"
+               onchange="showEditFileName(this)">
+      </label>
+    </div>
+  </div>
+ <div class="file-name" id="edit-file-name">
+  {% if site.content %}
+    Поточний файл: {{ site.content
+      |replace('uploads\\','')
+      |replace('uploads/','') }}
+  {% else %}
+    Поточний файл: —
+  {% endif %}
+  </div>
+</div>
+
+<script>
+  function showEditFileName(input){
+    const el = document.getElementById('edit-file-name');
+    const current = 'Поточний файл: {% if site.content %}{{ site.content
+      |replace("uploads\\","")
+      |replace("uploads/","") }}{% else %}—{% endif %}';
+    el.textContent = input.files.length ? ('Обрано: ' + input.files[0].name) : current;
+  }
+</script>
+
+
+
+
+        <div class="flex items-center gap-3 pt-2">
+          <button class="btn-primary" type="submit">💾 Зберегти</button>
+          <a href="/admin" class="btn btn-gray" type="button">Скасувати</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

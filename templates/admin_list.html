@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Адмін-панель</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03), transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(255,255,255,0.02), transparent 60%),
+      linear-gradient(180deg, #0d1117 0%, #06090f 100%);
+      background-attachment: fixed;
+      animation: softLight 10s ease-in-out infinite alternate;
+      color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+    }
+    @keyframes softLight {
+  0% {
+    background-position: 30% 30%, 70% 70%;
+  }
+  100% {
+    background-position: 40% 60%, 60% 40%;
+  }
+}
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-blue { background-color: #2563eb; color: white; }
+    .btn-blue:hover { background-color: #1d4ed8; }
+    .btn-red { background-color: #dc2626; color: white; }
+    .btn-red:hover { background-color: #b91c1c; }
+    .btn-gray { background-color: #374151; color: #d1d5db; }
+    .btn-gray:hover { background-color: #4b5563; }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #1f2937;
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      text-align: left;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #1f2937;
+      cursor: pointer;
+      user-select: none;
+    }
+    td {
+      padding: 10px 0;
+      border-bottom: 1px solid #1f2937;
+      vertical-align: middle;
+    }
+    tr:hover td { background-color: #1e2630; }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .status-new .status-dot { background-color: #facc15; } /* 🟡 */
+    .status-active .status-dot { background-color: #22c55e; } /* 🟢 */
+    .status-blocked .status-dot { background-color: #ef4444; } /* 🔴 */
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #161b22;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 14px;
+    border-bottom: 1px solid #1f2937;
+  }
+  th {
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: .05em;
+  }
+
+  .button {
+    background: linear-gradient(135deg, #f97316, #c2410c);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(249,115,22,0.4);
+  }
+    .page-title {
+  font-size: clamp(1.6rem, 2.2vw + 1rem, 2.2rem);
+  font-weight: 700;
+  color: #e6edf3;
+  letter-spacing: 0.02em;
+  position: relative;
+  text-transform: uppercase;
+  text-align: left;
+  line-height: 1.2;
+  padding-bottom: 8px;
+}
+.page-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  box-shadow: 0 0 12px rgba(234,88,12,0.6);
+  transition: width 0.3s ease;
+}
+.page-title:hover::after {
+  width: 125px;
+}
+    .btn-outline-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(15,23,42,.35), rgba(2,6,23,.2));
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: .02em;
+  transition: all .2s ease;
+}
+.btn-outline-key:hover {
+  color: #fff;
+  border-color: #2563eb;
+  box-shadow: 0 8px 22px rgba(37,99,235,.25);
+  transform: translateY(-1px);
+}
+.btn-outline-key:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(37,99,235,.2);
+}
+.btn-outline-key svg {
+  opacity: .9;
+}
+.copy-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px;
+  border:1px solid #334155; border-radius:6px;
+  background: linear-gradient(180deg, rgba(15,23,42,.35), rgba(2,6,23,.2));
+  color:#cbd5e1; cursor:pointer;
+  transition:transform .15s ease, box-shadow .2s ease, color .2s ease, border-color .2s ease;
+  margin-left: 15px;
+}
+.copy-btn:hover{
+  color:#fff; border-color:#2563eb; transform: translateY(-1px);
+  box-shadow:0 0 12px rgba(37,99,235,.35);
+}
+.copy-btn:active{ transform: translateY(0); box-shadow:none; }
+
+@media (max-width: 1200px) {
+  th, td { padding: 10px 8px; }
+  .btn { padding: 6px 12px; }
+}
+
+@media (max-width: 992px) {
+  #sitesTable td:nth-child(3) .flex {
+    justify-content: space-between;
+    gap: 8px;
+  }
+  #sitesTable td:nth-child(3) a {
+    display: inline-block;
+    max-width: calc(100% - 42px); /* місце під copy-btn */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+  .copy-btn {
+    flex: 0 0 26px;
+    margin-left: 0;         /* щоб не «плавала» */
+  }
+
+  #sitesTable td:nth-child(6) > .flex {
+    flex-wrap: nowrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  #sitesTable td:nth-child(6) .btn {
+    width: 36px; height: 36px; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+}
+
+
+
+@media (max-width: 640px) {
+  .card { padding: 14px; }
+  .page-title { font-size: 1.25rem; }
+  .card { overflow-x: auto; }
+  #sitesTable { min-width: 720px; }
+  th, td { padding: 10px 8px; }
+}
+
+.card::-webkit-scrollbar {
+  height: 20px;
+  width: 10px;
+}
+
+.card::-webkit-scrollbar-track {
+  background: #0d1117;
+  border-radius: 8px;
+}
+
+.card::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border-radius: 8px;
+  border: 2px solid #0d1117;
+  transition: background 0.3s ease;
+}
+
+.card::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+/* 🔹 Для Firefox */
+.card {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #0d1117;
+}
+  </style>
+</head>
+<body>
+  <div class="max-w-6xl mx-auto py-10">
+    <!-- Верхній блок -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+      <h1 class="text-2xl font-bold text-blue-400 page-title">Адмін-панель</h1>
+      <div class="flex flex-wrap gap-3">
+        <a href="/admin/create" class="btn btn-blue">➕ Створити сайт</a>
+        <form method="post" action="/logout">
+          <button type="submit" class="btn btn-red">🚪 Вийти</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      {% if sites|length == 0 %}
+        <p class="text-gray-400 text-center py-6">Поки що немає створених сайтів.</p>
+      {% else %}
+      <table id="sitesTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th onclick="sortTable(1)">Назва ⬍</th>
+            <th>Посилання</th>
+            <th onclick="sortTable(3)">Переходів ⬍</th>
+            <th onclick="sortTable(4)">З них RU ⬍</th>
+            <th onclick="sortTable(4)">Скачувань ⬍</th>
+            <th onclick="sortTable(4)">Статус ⬍</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for site in sites %}
+          <tr>
+            <td class="text-gray-400">{{ site.id }}</td>
+            <td>{{ site.title }}</td>
+
+<td>
+  <div class="flex items-center gap-2">
+    {% if site.custom_domain %}
+      <a href="https://{{ site.custom_domain }}"
+         target="_blank"
+         class="text-blue-400 hover:underline break-all">
+        {{ site.custom_domain }}
+      </a>
+      <button type="button"
+              class="copy-btn"
+              title="Копіювати посилання"
+              onclick="copyLink('https://{{ site.custom_domain }}')"
+              aria-label="Копіювати посилання">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="9" y="7" width="11" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M15 7V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <rect x="4" y="7" width="7" height="13" rx="2" stroke="currentColor" stroke-width="2" opacity=".6"/>
+        </svg>
+      </button>
+    {% else %}
+      <a href="https://{{ site.site_id }}.{{ base_domain }}"
+         target="_blank"
+         class="text-blue-400 hover:underline break-all">
+        {{ site.site_id }}.{{ base_domain }}
+      </a>
+      <button type="button"
+              class="copy-btn"
+              title="Копіювати посилання"
+              onclick="copyLink('https://{{ site.site_id }}.{{ base_domain }}')"
+              aria-label="Копіювати посилання">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="9" y="7" width="11" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M15 7V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <rect x="4" y="7" width="7" height="13" rx="2" stroke="currentColor" stroke-width="2" opacity=".6"/>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+</td>
+
+
+            <td>{{ site.visits or 0 }}</td>
+            <td>{{ site.target_visits or 0 }}</td>
+            <td>{{ site.downloads or 0 }}</td>
+            <td>
+              <div class="status status-{{ site.status }}">
+                <span class="status-dot"></span>
+                {{ site.status }}
+              </div>
+            </td>
+
+
+            <td>
+              <div class="flex flex-wrap gap-2">
+                <form method="get" action="/admin/edit/{{ site.id }}">
+                  <button class="btn btn-gray" type="submit">✏️</button>
+                </form>
+                <form method="post" action="/admin/delete/{{ site.id }}">
+                  <button class="btn btn-red" type="submit" onclick="return confirm('Видалити сайт {{ site.title }}?')">🗑️</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+    <div class="flex justify-end mt-6">
+  <a href="/admin/change-password" class="btn-outline-key" title="Змінити пароль">
+    <!-- іконка ключа -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="7.5" cy="15.5" r="5.5"></circle>
+      <path d="M21 2l-9.6 9.6"></path>
+      <path d="M15.5 7.5l3 3L22 7"></path>
+    </svg>
+    Змінити пароль
+  </a>
+</div>
+
+  </div>
+
+  <script>
+  function copyLink(url){
+    navigator.clipboard.writeText(url).then(()=>{
+      const toast=document.createElement('div');
+      toast.textContent='Посилання скопійовано!';
+      Object.assign(toast.style,{
+        position:'fixed',bottom:'30px',right:'30px',zIndex:9999,
+        background:'linear-gradient(135deg,#f97316,#c2410c)',color:'#fff',
+        padding:'8px 14px',borderRadius:'8px',fontSize:'14px',
+        boxShadow:'0 0 12px rgba(249,115,22,.4)',opacity:'0',
+        transition:'opacity .3s, transform .3s'
+      });
+      document.body.appendChild(toast);
+      requestAnimationFrame(()=>{ toast.style.opacity='1'; toast.style.transform='translateY(-6px)'; });
+      setTimeout(()=>{ toast.style.opacity='0'; toast.style.transform='translateY(0)'; },1500);
+      setTimeout(()=>toast.remove(),2000);
+    });
+  }
+
+
+    function sortTable(columnIndex) {
+      const table = document.getElementById("sitesTable");
+      const rows = Array.from(table.rows).slice(1);
+      const isNumeric = columnIndex === 0 || columnIndex === 3 || columnIndex === 4 || columnIndex === 5;
+      const asc = table.dataset.sortOrder !== "asc";
+
+      rows.sort((a, b) => {
+        const valA = a.cells[columnIndex].innerText.trim().toLowerCase();
+        const valB = b.cells[columnIndex].innerText.trim().toLowerCase();
+        if (isNumeric) return asc ? valA - valB : valB - valA;
+        return asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      });
+
+      rows.forEach(r => table.tBodies[0].appendChild(r));
+      table.dataset.sortOrder = asc ? "asc" : "desc";
+    }
+
+    async function deleteSite(id, title){
+  if(!confirm(`Видалити сайт "${title}"?`)) return;
+  try{
+    const res = await fetch(`/admin/delete/${id}`, { method: 'POST' });
+    if(res.ok){
+      location.reload();
+    }else{
+      const txt = await res.text();
+      alert('Не вдалося видалити. Код: ' + res.status + '\n' + txt);
+    }
+  }catch(e){
+    alert('Помилка мережі: ' + e);
+  }
+}
+  </script>
+</body>
+</html>
